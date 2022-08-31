@@ -1,3 +1,6 @@
+# Thank you to StatQuest and his amazing video about XGBoost for helping me get started with XGBoost.
+# https://www.youtube.com/watch?v=GrJP9FLV3FE&t=2635s
+
 import pandas
 import numpy as np
 import xgboost as xgb
@@ -91,6 +94,7 @@ To_Optimize_Parameters = {
     'scale_pos_weight':[5.0]
 }
 
+# Run the following chunks for each pass (for each To_Optimize_Parameters)
 optimal_params = GridSearchCV(
     estimator=xgb.XGBClassifier(objective='binary:logistic',
                                 seed=47,
@@ -110,8 +114,10 @@ optimal_params.fit(X_train,
                    eval_set=[(X_test,y_test)],
                    verbose=False)
 
+# This function will give us the optimal parameters for each pass.
 print(optimal_params.best_params_)
 
+# Now that we have the optimal parameters, let's try rerunning the XGBoost algorithm.
 
 XGB_Refined = xgb.XGBClassifier(seed = 47,
                                 objective='binary:logistic',
@@ -135,3 +141,6 @@ plot_confusion_matrix(XGB_Refined,
                       y_test,
                       values_format='d',
                       display_labels=["Not Bankrupt","Bankrupt"])
+
+# Even with optimal model parameters, we still get the same result, which
+# ...is that our extreme gradient boosted trees are predicting "Not Bankrupt" for all obs.
