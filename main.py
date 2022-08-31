@@ -144,3 +144,4 @@ plot_confusion_matrix(XGB_Refined,
 
 # Even with optimal model parameters, we still get the same result, which
 # ...is that our extreme gradient boosted trees are predicting "Not Bankrupt" for all obs.
+# This tells me that the Bankruptcy dataset is just not a great candidate for applied ML.
